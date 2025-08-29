@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>myFlashID</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: Arial, sans-serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      color: #fff;
+      width: 350px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 1rem;
+    }
+    button {
+      width: 95%;
+      padding: 0.7rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .error {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      background: rgba(255, 0, 0, 0.2);
+      color: #ffaaaa;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h2>myFlashID Login</h2>
+    <div id="error-box" class="error" style="display:none;"></div>
+    <div id="login-box">
+      <input type="text" id="username" placeholder="Username" /><br />
+      <input type="password" id="password" placeholder="Password" /><br />
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get("redirect");
+
+    const errorBox = document.getElementById("error-box");
+    const loginBox = document.getElementById("login-box");
+
+    if (!redirectUrl) {
+      errorBox.style.display = "block";
+      errorBox.textContent = "Error: redirect query is missing";
+      loginBox.style.display = "none";
+    }
+
+    function login() {
+      const token = Math.random().toString(36).substring(2, 15);
+      window.location.href = `${redirectUrl}?token=${token}`;
+    }
+  </script>
+</body>
+</html>
